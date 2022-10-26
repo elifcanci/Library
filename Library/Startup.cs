@@ -40,10 +40,6 @@ namespace Library
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapGet("/", async context =>
-                //{
-                //    await context.Response.WriteAsync("Hello World!");
-                //});
                 endpoints.MapDefaultControllerRoute(); //{controller=Home}/{action=Index}/{id?}
             });
         }

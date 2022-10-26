@@ -14,5 +14,6 @@ namespace Library.Models
         //Relational Property
 
         public List<Operation>  Operations { get; set; }
+        public virtual StudentDetail StudentDetail { get; set; }
     }
 }

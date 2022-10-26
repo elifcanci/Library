@@ -1,4 +1,5 @@
-﻿using Library.Models;
+﻿using Library.Configurations;
+using Library.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Context
@@ -13,8 +14,14 @@ namespace Library.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Operation>().Ignore("ID");
-            modelBuilder.Entity<Operation>().HasKey("StudentID", "BookID"); //HasKey = Primary Key
+            modelBuilder.ApplyConfiguration(new OperationConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentConfiguration());
+            modelBuilder.ApplyConfiguration(new BookConfiguration());
+
+            // Author
+            //modelBuilder.Entity<Author>().Property(X => X.FirstName).HasColumnName("İsim");
+            //modelBuilder.Entity<Author>().Property(X => X.FirstName).IsRequired(); Alanı zorunlu yapar
+
         }
 
         public DbSet<Student> Students { get; set; }
@@ -24,3 +31,4 @@ namespace Library.Context
         public DbSet<Author> Authors { get; set; }
     }
 }
+  

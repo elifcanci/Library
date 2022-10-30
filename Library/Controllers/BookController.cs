@@ -2,6 +2,7 @@
 using Library.Dto;
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
@@ -16,14 +17,17 @@ namespace Library.Controllers
 
         public IActionResult BookList()
         {
-            return View();
+            List<Book> books = _db.Books.Where(b => b.Status != Enums.DataStatus.Deleted).Include(x => x.Author).Include(x =>
+            x.BookType).ToList();
+            return View(books);
         }
 
         public IActionResult Create()
         {
-            List<AuthorDto> authers = _db.Authors.Where(X => X.Status != Enums.DataStatus.Deleted).Select(x => 
-            new AuthorDto(){
-                ID = x.ID,  
+            List<AuthorDto> authers = _db.Authors.Where(X => X.Status != Enums.DataStatus.Deleted).Select(x =>
+            new AuthorDto()
+            {
+                ID = x.ID,
                 FirstName = x.FirstName,
                 LastName = x.LastName
             }).ToList();
@@ -38,5 +42,12 @@ namespace Library.Controllers
             return View((new Book(), authers, bookTypes));
         }
 
+        [HttpPost]
+        public IActionResult Create([Bind(Prefix = "Item1")] Book book)
+        {
+            _db.Books.Add(book);
+            _db.SaveChanges();
+            return RedirectToAction("BookList");
+        }
     }
 }

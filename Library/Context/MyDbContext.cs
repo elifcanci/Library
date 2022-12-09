@@ -1,4 +1,5 @@
 ﻿using Library.Configurations;
+using Library.Initializer;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace Library.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            DataInitializer.Seed(modelBuilder);
             modelBuilder.ApplyConfiguration(new OperationConfiguration());
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
@@ -29,6 +31,7 @@ namespace Library.Context
         public DbSet<BookType> BookTypes { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<AppUser> Users { get; set; }
     }
 }
   

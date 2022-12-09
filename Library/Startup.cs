@@ -29,8 +29,9 @@ namespace Library
             services.AddControllersWithViews(); //Projeye MVC mimarisini ekler.
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,MyDbContext context)
         {
+            context.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

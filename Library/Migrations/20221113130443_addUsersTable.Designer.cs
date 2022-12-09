@@ -4,6 +4,7 @@ using Library.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221113130443_addUsersTable")]
+    partial class addUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,28 +55,6 @@ namespace Library.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5299),
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$11$fIFhJ52Ii6XKagUKgyi/4etbQmlHg.hXNey09L7b2uOGtPtoxLzse",
-                            Role = 1,
-                            Status = 0,
-                            UserName = "administrator"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5323),
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$11$..o9BIXelvj.qZzN.5edfeIZCYhjbqKVsncxdf.n4QwQLDF0DZ3Ay",
-                            Role = 2,
-                            Status = 0,
-                            UserName = "Elif"
-                        });
                 });
 
             modelBuilder.Entity("Library.Models.Author", b =>
@@ -211,6 +191,9 @@ namespace Library.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<DateTime>("BirthDay")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -228,54 +211,20 @@ namespace Library.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SchoolNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5625),
-                            FirstName = "Melih",
-                            Gender = 0,
-                            LastName = "Bayram",
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = 0
-                        },
-                        new
-                        {
-                            ID = 2,
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5629),
-                            FirstName = "Merve",
-                            Gender = 1,
-                            LastName = "Akdeniz",
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = 0
-                        },
-                        new
-                        {
-                            ID = 3,
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5631),
-                            FirstName = "Mert",
-                            Gender = 0,
-                            LastName = "Öden",
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = 0
-                        },
-                        new
-                        {
-                            ID = 4,
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5632),
-                            FirstName = "Şule",
-                            Gender = 1,
-                            LastName = "Çakır",
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = 0
-                        });
                 });
 
             modelBuilder.Entity("Library.Models.StudentDetail", b =>
@@ -315,52 +264,6 @@ namespace Library.Migrations
                         .IsUnique();
 
                     b.ToTable("StudentDetail");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            BirthDay = new DateTime(1997, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5689),
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PhoneNumber = "05418965236",
-                            SchoolNumber = "100",
-                            Status = 0,
-                            StudentID = 1
-                        },
-                        new
-                        {
-                            ID = 2,
-                            BirthDay = new DateTime(1997, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5696),
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PhoneNumber = "05418965236",
-                            SchoolNumber = "101",
-                            Status = 0,
-                            StudentID = 2
-                        },
-                        new
-                        {
-                            ID = 3,
-                            BirthDay = new DateTime(1992, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5698),
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PhoneNumber = "05418965236",
-                            SchoolNumber = "102",
-                            Status = 0,
-                            StudentID = 3
-                        },
-                        new
-                        {
-                            ID = 4,
-                            BirthDay = new DateTime(1990, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(2022, 11, 13, 18, 0, 42, 763, DateTimeKind.Local).AddTicks(5701),
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PhoneNumber = "05418965236",
-                            SchoolNumber = "103",
-                            Status = 0,
-                            StudentID = 4
-                        });
                 });
 
             modelBuilder.Entity("Library.Models.Book", b =>

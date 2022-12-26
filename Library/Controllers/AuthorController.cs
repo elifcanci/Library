@@ -1,21 +1,23 @@
 ﻿using Library.Context;
 using Library.Models;
+using Library.RepositoryPattern.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
     public class AuthorController : Controller
     {
-        MyDbContext _db;
 
-        public AuthorController(MyDbContext db)
+        IRepository<Author> _repoAuthor;
+
+        public AuthorController(IRepository<Author> repository)
         {
-            _db = db;
+            _repoAuthor = repository;
         }
 
         public IActionResult AuthorList()
         {
-            List<Author> authorList = _db.Authors.Where(a => a.Status != Enums.DataStatus.Deleted).ToList();
+            List<Author> authorList = _repoAuthor.GetAll();
             return View(authorList);
         }
 
@@ -27,34 +29,26 @@ namespace Library.Controllers
         [HttpPost]
         public IActionResult Create(Author author)
         {
-            _db.Authors.Add(author);
-            _db.SaveChanges();
+            _repoAuthor.Add(author);
             return RedirectToAction("AuthorList");
         }
 
         public IActionResult Edit(int id)
         {
-            Author author = _db.Authors.Find(id);
+            Author author = _repoAuthor.GetById(id);
             return View(author);
         }
 
         [HttpPost]
         public IActionResult Edit(Author author)
         {
-            author.Status = Enums.DataStatus.Updated;
-            author.ModifiedDate = DateTime.Now;
-            _db.Authors.Update(author);
-            _db.SaveChanges();
+            _repoAuthor.Update(author);
             return RedirectToAction("AuthorList");
         }
 
         public IActionResult Delete(int id)
         {
-            Author author = _db.Authors.Find(id);
-            author.Status = Enums.DataStatus.Deleted;
-            author.ModifiedDate = DateTime.Now;
-            _db.Authors.Update(author);
-            _db.SaveChanges();
+            _repoAuthor.Delete(id);
             return RedirectToAction("AuthorList");
         }
     }

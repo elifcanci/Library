@@ -26,7 +26,7 @@
                 <td>@(Model[i].Author.FirstName + " " + Model[i].Author.LastName)</td>
                 <td>@Model[i].BookType.Name</td>
                 <td>
-                    <a class="big-icon" asp-controller="Book" asp-action="Edit" asp-route-id="@Model[i].ID"><i class="bi bi-pencil-square"></i></a>
+                    @*<a class="big-icon" asp-controller="Book" asp-action="Edit" asp-route-id="@Model[i].ID"><i class="bi bi-pencil-square"></i></a>*@
                     <a class="big-icon margin-icon" asp-controller="Book" asp-action="Delete" asp-route-id="@Model[i].ID"><i class="bi bi-x-circle-fill"></i></a>
                 </td>
             </tr>

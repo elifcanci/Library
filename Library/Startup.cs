@@ -1,15 +1,8 @@
 using Library.Context;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Library.Models;
+using Library.RepositoryPattern.Base;
+using Library.RepositoryPattern.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Library
 {
@@ -27,6 +20,8 @@ namespace Library
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(_configuration
             ["ConnectionStrings:Mssql"]));
             services.AddControllersWithViews(); //Projeye MVC mimarisini ekler.
+            services.AddScoped<IRepository<BookType>, Repository<BookType>>();
+            services.AddScoped<IRepository<Author>, Repository<Author>>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,MyDbContext context)

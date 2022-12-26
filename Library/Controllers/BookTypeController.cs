@@ -1,21 +1,22 @@
 ﻿using Library.Context;
 using Library.Models;
+using Library.RepositoryPattern.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
     public class BookTypeController : Controller
     {
-        MyDbContext _db;
+        IRepository<BookType> _repoBookType;
 
-        public BookTypeController(MyDbContext db)
+        public BookTypeController(IRepository<BookType> repository)
         {
-            _db = db;
+            _repoBookType = repository;
         }
 
         public IActionResult BookTypeList()
         {
-            List<BookType> bookTypes = _db.BookTypes.Where(a => a.Status != Enums.DataStatus.Deleted).ToList();
+            List<BookType> bookTypes = _repoBookType.GetAll();
             return View(bookTypes);
         }
 
@@ -27,34 +28,26 @@ namespace Library.Controllers
         [HttpPost]
         public IActionResult Create(BookType bookType)
         {
-            _db.BookTypes.Add(bookType);
-            _db.SaveChanges();
+            _repoBookType.Add(bookType);
             return RedirectToAction("BookTypeList");
         }
 
         public IActionResult Edit(int id)
         {
-            BookType bookType = _db.BookTypes.Find(id);
+            BookType bookType = _repoBookType.GetById(id);
             return View(bookType);
         }
 
         [HttpPost]
         public IActionResult Edit(BookType bookType)
         {
-            bookType.Status = Enums.DataStatus.Updated;
-            bookType.ModifiedDate = DateTime.Now;
-            _db.BookTypes.Update(bookType);
-            _db.SaveChanges();
+            _repoBookType.Update(bookType);
             return RedirectToAction("BookTypeList");
         }
 
         public IActionResult Delete(int id)
         {
-            BookType bookType = _db.BookTypes.Find(id);
-            bookType.Status = Enums.DataStatus.Deleted;
-            bookType.ModifiedDate = DateTime.Now;
-            _db.BookTypes.Update(bookType);
-            _db.SaveChanges();
+            _repoBookType.SpecialDelete(id);
             return RedirectToAction("BookTypeList");
         }
     }

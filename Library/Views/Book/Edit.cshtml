@@ -1,0 +1,26 @@
+﻿@using Library.Dto
+@model (Book book,List<AuthorDto> authors,List<BookTypeDto> bookTypes)
+@{
+    ViewData["Title"] = "Book Create Page";
+}
+
+<h3 class="text-center">Book Update Page</h3>
+<form method="post" asp-controller="Book" asp-action="Edit">
+    <div class="mb-3">
+        <label class="form-label" asp-for="book.Name">Name</label>
+        <input type="text" class="form-control" asp-for="book.Name" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="book.PageCount">Page Count</label>
+        <input type="text" class="form-control" asp-for="book.PageCount" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="book.AuthorID">Author</label>
+        <select class="form-control" asp-for="book.AuthorID" asp-items="@(new SelectList(Model.authors,"ID","FullName"))"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="book.BookTypeID">Book Type</label>
+        <select class="form-control" asp-for="book.BookTypeID" asp-items="@(new SelectList(Model.bookTypes,"ID","Name"))"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

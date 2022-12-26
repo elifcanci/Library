@@ -49,5 +49,31 @@ namespace Library.Controllers
             _db.SaveChanges();
             return RedirectToAction("BookList");
         }
+
+        public IActionResult Edit(int id)
+        {
+            Book book = _db.Books.Find(id);
+            return View(book);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Book book)
+        {
+            book.Status = Enums.DataStatus.Updated;
+            book.ModifiedDate = DateTime.Now;
+            _db.Books.Update(book);
+            _db.SaveChanges();
+            return RedirectToAction("BookList");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Book book = _db.Books.Find(id);
+            book.Status = Enums.DataStatus.Deleted;
+            book.ModifiedDate = DateTime.Now;
+            _db.Books.Update(book);
+            _db.SaveChanges();
+            return RedirectToAction("BookList");
+        }
     }
 }

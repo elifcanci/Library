@@ -85,5 +85,10 @@ namespace Library.RepositoryPattern.Base
             table.Update(item);
             Save();
         }
+
+        public T Default(Expression<Func<T, bool>> exp)
+        {
+            return table.FirstOrDefault(exp);
+        }
     }
 }

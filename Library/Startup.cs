@@ -23,6 +23,7 @@ namespace Library
             services.AddScoped<IRepository<BookType>, Repository<BookType>>();
             services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
             services.AddScoped<IRepository<Author>, Repository<Author>>();
+            services.AddScoped<IRepository<Student>, Repository<Student>>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,MyDbContext context)

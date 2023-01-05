@@ -1,10 +1,12 @@
 ﻿using Library.Context;
 using Library.Models;
 using Library.RepositoryPattern.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Areas.Management.Controllers
 {
+    [Area("Management")]
     public class StudentController : Controller
     {
 

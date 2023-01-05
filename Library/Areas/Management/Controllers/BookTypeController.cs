@@ -1,10 +1,12 @@
 ﻿using Library.Context;
 using Library.Models;
 using Library.RepositoryPattern.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Areas.Management.Controllers
 {
+    [Area("Management")]
     public class BookTypeController : Controller
     {
         IRepository<BookType> _repoBookType;
@@ -29,7 +31,7 @@ namespace Library.Controllers
         public IActionResult Create(BookType bookType)
         {
             _repoBookType.Add(bookType);
-            return RedirectToAction("BookTypeList");
+            return RedirectToAction("BookTypeList", "BookType", new { area = "Management" });
         }
 
         public IActionResult Edit(int id)
@@ -42,13 +44,13 @@ namespace Library.Controllers
         public IActionResult Edit(BookType bookType)
         {
             _repoBookType.Update(bookType);
-            return RedirectToAction("BookTypeList");
+            return RedirectToAction("BookTypeList", "BookType", new { area = "Management" });
         }
 
         public IActionResult Delete(int id)
         {
             _repoBookType.SpecialDelete(id);
-            return RedirectToAction("BookTypeList");
+            return RedirectToAction("BookTypeList", "BookType", new { area = "Management" });
         }
     }
 }

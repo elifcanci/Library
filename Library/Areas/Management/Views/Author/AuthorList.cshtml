@@ -1,10 +1,7 @@
 ﻿@model List<Author>
-@{
-    ViewData["Title"] = "Author Page";
-}
 
 <h3 class="text-center">Author List Page</h3>
-<a asp-controller="Author" asp-action="Create" class="btn btn-primary" style="float:right">Add New</a>
+<a asp-controller="Author" asp-action="Create" asp-area="Management" class="btn btn-primary" style="float:right">Add New</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -22,8 +19,8 @@
                 <td>@Model[i].FirstName</td>
                 <td>@Model[i].LastName</td>
                 <td>
-                    <a class="big-icon" asp-controller="Author" asp-action="Edit" asp-route-id="@Model[i].ID"><i class="bi bi-pencil-square"></i></a>
-                    <a class="big-icon margin-icon" asp-controller="Author" asp-action="Delete" asp-route-id="@Model[i].ID"><i class="bi bi-x-circle-fill"></i></a>
+                    <a class="big-icon" asp-controller="Author" asp-action="Edit" asp-area="Management" asp-route-id="@Model[i].ID"><i class="bi bi-pencil-square"></i></a>
+                    <a class="big-icon margin-icon" asp-controller="Author" asp-action="Delete" asp-area="Management" asp-route-id="@Model[i].ID"><i class="bi bi-x-circle-fill"></i></a>
                 </td>
             </tr>
         }

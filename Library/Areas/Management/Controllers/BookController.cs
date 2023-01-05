@@ -1,11 +1,13 @@
 ﻿using Library.Context;
 using Library.Dto;
 using Library.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Controllers
+namespace Library.Areas.Management.Controllers
 {
+    [Area("Management")]
     public class BookController : Controller
     {
         MyDbContext _db;
@@ -47,7 +49,7 @@ namespace Library.Controllers
         {
             _db.Books.Add(book);
             _db.SaveChanges();
-            return RedirectToAction("BookList");
+            return RedirectToAction("BookList", "Book", new { area = "Management" });
         }
 
         public IActionResult Edit(int id)
@@ -63,7 +65,7 @@ namespace Library.Controllers
             book.ModifiedDate = DateTime.Now;
             _db.Books.Update(book);
             _db.SaveChanges();
-            return RedirectToAction("BookList");
+            return RedirectToAction("BookList", "Book", new { area = "Management" });
         }
 
         public IActionResult Delete(int id)
@@ -73,7 +75,7 @@ namespace Library.Controllers
             book.ModifiedDate = DateTime.Now;
             _db.Books.Update(book);
             _db.SaveChanges();
-            return RedirectToAction("BookList");
+            return RedirectToAction("BookList", "Book", new { area = "Management" });
         }
     }
 }

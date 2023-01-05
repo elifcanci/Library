@@ -1,10 +1,9 @@
 ﻿@model List<Book>
 @{
-    Layout = "~/Areas/Management/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h3 class="text-center">Book List Page</h3>
-<a asp-controller="Book" asp-action="Create" asp-area="Management" class="btn btn-primary" style="float: right;">Add New</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -13,7 +12,6 @@
             <th>Page Count</th>
             <th>Author</th>
             <th>Book Type</th>
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -25,10 +23,6 @@
                 <td>@Model[i].PageCount</td>
                 <td>@(Model[i].Author.FirstName + " " + Model[i].Author.LastName)</td>
                 <td>@Model[i].BookType.Name</td>
-                <td>
-                    @*<a class="big-icon" asp-controller="Book" asp-action="Edit" asp-route-id="@Model[i].ID"><i class="bi bi-pencil-square"></i></a>*@
-                    <a class="big-icon margin-icon" asp-controller="Book" asp-area="Management" asp-action="Delete" asp-route-id="@Model[i].ID"><i class="bi bi-x-circle-fill"></i></a>
-                </td>
             </tr>
         }
     </tbody>

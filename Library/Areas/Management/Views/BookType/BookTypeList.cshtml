@@ -1,4 +1,7 @@
 ﻿@model List<BookType>
+@{
+    Layout = "~/Areas/Management/Views/Shared/_Layout.cshtml";
+}
 
 <h3 class="text-center">Book List Page</h3>
 <a asp-controller="BookType" asp-area="Management" asp-action="Create" class="btn btn-primary" style="float: right;">Add New</a>

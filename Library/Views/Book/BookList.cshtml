@@ -1,5 +1,8 @@
-﻿@model List<Book>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model List<Book>
+@inject IViewLocalizer Localizer
 @{
+    ViewData["Title"] = "BookList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,10 +11,10 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Page Count</th>
-            <th>Author</th>
-            <th>Book Type</th>
+            <th>@Localizer["Name"]</th>
+            <th>@Localizer["PageCount"]</th>
+            <th>@Localizer["Author"]</th>
+            <th>@Localizer["BookType"]</th>
         </tr>
     </thead>
     <tbody>

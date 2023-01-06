@@ -62,7 +62,7 @@ namespace Library
             });
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin", "user"));
+                options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin"));
                 options.AddPolicy("UserPolicy", policy => policy.RequireClaim("role", "user", "admin"));
 
             });
